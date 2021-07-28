@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color__changer</title>
+  <style>
+    .text__block {
+      box-sizing: border-box;
+      padding: 20px;
+      border: 1px solid #ccc;
+      width: 400px;
+      height: 200px;
+    }
+    #range{
+      width: 400px;
+      height: 20px;
+    }
+    input[type=range]{
+      -webkit-appearance: none;
+      width: 100%;
+      background: linear-gradient(to right, #F70505, #F78A05, #F7F705, #CFF705, #19F705, #05F766, #05EFF7, #2105F7, #F705EF, #F70505);
+    }
+    .btns {
+      box-sizing: border-box;
+      margin: 20px 0;
+    }
+    .label__btn {
+      border-style: groove;
+      padding: 5px 20px;
+      background-color: #e5e5e5;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    /* .rangeValue{
+      color: hsl(323, 100%, 50%);
+    } */
+    .ready {
+      background-color: lightblue;
+    }
+  </style>
+</head>
+<body>
+    <main>
+      <article>
+        <section>
+          
+          <div class="input">
+            <input id="range" type="range" min="1" max="356" value="156">
+          </div>
+          <div class="text__block">
+            <span class="rangeValue">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Amet temporibus illum, inventore incidunt nesciunt dicta voluptas neque error omnis aliquid?
+            </span>
+          </div>
+          <div class="btns">
+            <span class="label__btn" onclick="change1()">text</span>
+            <span class="label__btn" onclick="change2()">back</span>
+          </div>
+        </section>
+      </article>
+    </main>
+    <script>
+      const inputColor = document.getElementById('range')
+      const rangeValue = document.querySelector('.rangeValue')
+      const rangeBlock = document.querySelector('.text__block')
+      const btns = document.querySelector('.btns')
+      const btnsLabel = [...document.querySelectorAll('.label__btn')]
+
+
+      function change1(){
+        document.querySelector('.rangeValue').style.color = `hsl(${event.target.value}, 70%, 50%)`
+      }
+      function change2(){
+        document.querySelector('.text__block').style.backgroundColor = `hsl(${event.target.value}, 70%, 50%)`
+      }
+      
+      btns.addEventListener('click', (event) => {
+        event.preventDefault()
+        btnsLabel.forEach((item)=>{
+          item.classList.remove('ready')
+        })
+          if(event.target.innerText == 'text'){
+            inputColor.removeEventListener('input', change2)
+            event.target.classList.add('ready')
+            inputColor.addEventListener('input', change1)
+          } else if (event.target.innerText == 'back'){
+            inputColor.removeEventListener('input', change1)
+            event.target.classList.add('ready')
+            inputColor.addEventListener('input', change2)
+          }
+      })
+    </script>
+</body>
+</html>
